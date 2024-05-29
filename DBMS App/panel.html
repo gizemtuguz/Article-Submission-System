@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>ArticleHub</title>
+
+    
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .admin-panel {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-panel h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .user-list,
+        .remove-user-list {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .user-list th,
+        .user-list td,
+        .remove-user-list th,
+        .remove-user-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-list th,
+        .remove-user-list th {
+            background-color: #f2f2f2;
+        }
+
+        .user-list tr:nth-child(even),
+        .remove-user-list tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .user-list tr:hover,
+        .remove-user-list tr:hover {
+            background-color: #ddd;
+        }
+
+        .user-list th,
+        .remove-user-list th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .update-role-btn,
+        .remove-user-btn {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .update-role-btn:hover,
+        .remove-user-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero_area">
+        
+        <header class="header_section">
+            <div class="heer-fluidader_top">
+                <div class="contain">
+                    <div class="contact_nav">
+                        <a href="">
+                            <i class="phone" aria-hidden="true"></i>
+                            <span>
+                                Call : 0544 234 3720
+                            </span>
+                        </a>
+                        <a href="">
+                            <i class="envelope" aria-hidden="true"></i>
+                            <span>
+                                Email : DBMS@gmail.com
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="header_bottom">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg custom_nav-container">
+                        <a class="navbar-brand" href="Main.html">
+                            <span>
+                                ArticleHub
+                            </span>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class=""> </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="Main.html">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#" id="adminPanelLink">Panel <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="index.html">Logout <span class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="admin-panel">
+        <h2>Admin Panel</h2>
+        <h3>Remove Users</h3>
+        <table class="remove-user-list">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Full Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="removeUserList">
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function fetchUsers() {
+            fetch('http://localhost:8080/users')
+                .then(response => response.json())
+                .then(data => {
+                    const removeUserList = document.getElementById('removeUserList');
+                    removeUserList.innerHTML = ''; 
+
+                    data.forEach(user => {
+                        const removeUserRow = document.createElement('tr');
+                        removeUserRow.innerHTML = `
+                            <td>${user.user_id}</td>
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td>${user.full_name}</td>
+                            <td><button class="remove-user-btn" data-user-id="${user.user_id}">Remove User</button></td>
+                        `;
+                        removeUserList.appendChild(removeUserRow);
+                    });
+
+                    document.querySelectorAll('.remove-user-btn').forEach(button => {
+                        button.addEventListener('click', () => {
+                            const userId = button.getAttribute('data-user-id');
+                            removeUser(userId);
+                        });
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                });
+        }
+
+        function removeUser(userId) {
+            fetch('http://localhost:8080/remove_user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user_id: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    fetchUsers();
+                })
+                .catch(error => {
+                    console.error('Error removing user:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchUsers);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Article</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <style>
+        .upload-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            margin: auto;
+            margin-top: 50px;
+        }
+        .upload-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .upload-container input[type="text"], 
+        .upload-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .upload-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .upload-container button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero_area">
+        <header class="header_section">
+            <div class="header_top">
+                <div class="container-fluid">
+                    <div class="contact_nav">
+                        <a href="">
+                            <i class="phone" aria-hidden="true"></i>
+                            <span>Call : 0544 234 3720</span>
+                        </a>
+                        <a href="">
+                            <i class="envelope" aria-hidden="true"></i>
+                            <span>Email : DBMS@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="header_bottom">
+                <div class="container-fluid">
+                    <nav class="navbar navbar-expand-lg custom_nav-container">
+                        <a class="navbar-brand" href="Main.html">
+                            <span>ArticleHub</span>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class=""> </span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="Main.html">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <div class="upload-container">
+            <h2>Upload Article</h2>
+            <form id="uploadForm">
+                <input type="text" id="title" placeholder="Article Title" required>
+                <textarea id="content" placeholder="Article Content" rows="10" required></textarea>
+                <input type="text" id="username" placeholder="Username" required>
+                <button type="submit">Upload</button>
+            </form>
+            <div class="message" id="message"></div>
+        </div>
+    </div>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var title = document.getElementById('title').value;
+            var content = document.getElementById('content').value;
+            var username = document.getElementById('username').value;
+            var messageDiv = document.getElementById('message');
+
+            var formData = new FormData();
+            formData.append('title', title);
+            formData.append('content', content);
+            formData.append('username', username);
+
+            fetch('http://localhost:8080/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text().then(text => ({ status: response.status, text })))
+            .then(({ status, text }) => {
+                messageDiv.textContent = '';
+                if (status === 200) {
+                    messageDiv.textContent = 'Article uploaded successfully';
+                    messageDiv.style.color = 'green';
+                } else if (status === 400 && text === 'Username not found') {
+                    messageDiv.textContent = 'Username not found';
+                    messageDiv.style.color = 'red';
+                } else {
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                    messageDiv.style.color = 'red';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                messageDiv.textContent = 'An error occurred. Please try again.';
+                messageDiv.style.color = 'red';
+            });
+        });
+    </script>
+    
+  <footer class="footer_section" style="height: 100px;">
+    <p>
+      &copy; <span id="displayDateYear"></span> ArticleHub
+    </p>
+  </footer>
+  
+</body>
+</html>

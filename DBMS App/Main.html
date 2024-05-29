@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>ArticleHub</title>
+
+  
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  
+  <style>
+    .slider_section {
+      background: url('images/dall.jpeg') no-repeat center center;
+      background-size: cover;
+      padding: 40px 0;
+    }
+
+    .detail-box {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 20px;
+    }
+
+    .search-bar-wrapper {
+      background: linear-gradient(to right, #d1e3ff, #d1e3ff);
+      padding: 15px 0;
+    }
+
+    .search-bar {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+    }
+
+    .search-bar input {
+      width: calc(100% - 40px);
+      padding: 10px;
+      border: none;
+      border-radius: 25px 0 0 25px;
+    }
+
+    .search-bar button {
+      width: 40px;
+      padding: 10px;
+      background-color: #035ccf;
+      border: none;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-bar button i {
+      font-size: 16px;
+    }
+
+    .article-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(24, 23, 23, 0.1);
+      margin-bottom: 20px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      word-wrap: break-word;
+      margin-top: 20px;
+      border-style: groove;
+    }
+
+    .article-content {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+    }
+
+    .read-more {
+      color: blue;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .top-articles {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      max-width: 300px;
+      word-wrap: break-word;
+      border-style: groove;
+    }
+
+    .top-articles h3 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .upload-btn-container {
+      margin-bottom: 20px;
+    }
+
+    .upload-btn-container .btn {
+      width: 100%;
+      background-color: #007bff;
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .upload-btn-container .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="hero_area">
+    
+    <header class="header_section">
+      <div class="heer-fluidader_top">
+        <div class="contain">
+          <div class="contact_nav">
+            <a href="">
+              <i class="phone" aria-hidden="true"></i>
+              <span>
+                Call : 0544 234 3720
+              </span>
+            </a>
+            <a href="">
+              <i class="envelope" aria-hidden="true"></i>
+              <span>
+                Email : DBMS@gmail.com
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="Main.html">
+              <span>
+                ArticleHub
+              </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class=""> </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="Main.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#" id="adminPanelLink">Panel <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Logout <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+    
+    <div class="search-bar-wrapper">
+      <div class="container">
+        <div class="search-bar">
+          <input type="text" placeholder="Search articles..." class="form-control" id="searchInput">
+          <button type="button" class="btn btn-primary" id="searchButton">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <section class="slider_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-box">
+              <h1>
+                Article <br>
+                Submission <br>
+                System
+              </h1>
+              <p>
+                Write, Submit, Succeed: Empower Your Voice
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  </div>
+
+  
+  <div class="container">
+    <div class="row">
+      
+      <div class="col-md-3">
+        <div class="upload-btn-container">
+          <a href="upload.html" class="btn btn-primary">Upload Article</a>
+        </div>
+        <div class="top-articles">
+          <h3>Top Articles</h3>
+          
+          <ul id="topArticlesList" class="list-unstyled">
+          </ul>
+        </div>
+      </div>
+      
+      <div class="col-md-9">
+        <section class="article_list" id="articleList">
+          <div class="container">
+            
+          </div>
+        </section>
+      </div>
+      
+    </div>
+  </div>
+
+  
+  <footer class="footer_section">
+    <p>
+      &copy; <span id="displayDateYear"></span> ArticleHub
+    </p>
+  </footer>
+  
+
+  
+  <div class="modal fade" id="adminLoginModal" tabindex="-1" role="dialog" aria-labelledby="adminLoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="adminLoginModalLabel">Admin Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="adminLoginForm">
+            <div class="form-group">
+              <label for="adminUsername">Username</label>
+              <input type="text" class="form-control" id="adminUsername" required>
+            </div>
+            <div class="form-group">
+              <label for="adminPassword">Password</label>
+              <input type="password" class="form-control" id="adminPassword" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+          <div id="adminLoginMessage" style="margin-top: 10px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("displayDateYear").innerHTML = new Date().getFullYear();
+
+    function truncateText(text, maxLines = 5) {
+      const lines = text.split('\n');
+      if (lines.length <= maxLines) return text;
+      return lines.slice(0, maxLines).join('\n') + '...';
+    }
+
+    function fetchArticles() {
+      fetch('http://localhost:8080/articles')
+        .then(response => response.json())
+        .then(data => {
+          const articleList = document.getElementById('articleList').querySelector('.container');
+          articleList.innerHTML = ''; 
+          data.forEach(article => {
+            const truncatedContent = truncateText(article.content);
+            const articleItem = document.createElement('div');
+            articleItem.className = 'article-item';
+            articleItem.innerHTML = `
+              <h3>${article.title}</h3>
+              <p class="article-content">${truncatedContent}</p>
+              <p><a href="read.html?id=${article.article_id}" class="read-more">Read more</a></p>
+            `;
+            articleList.appendChild(articleItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching articles:', error);
+        });
+    }
+
+    function fetchTopArticles() {
+      fetch('http://localhost:8080/top_articles')
+        .then(response => response.json())
+        .then(data => {
+          const topArticlesList = document.getElementById('topArticlesList');
+          topArticlesList.innerHTML = ''; 
+          data.forEach((article, index) => {
+            const topArticleItem = document.createElement('li');
+            topArticleItem.innerHTML = `<a href="read.html?id=${article.article_id}">${index + 1}. ${article.title}</a>`;
+            topArticlesList.appendChild(topArticleItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching top articles:', error);
+        });
+    }
+
+    function searchArticles(query) {
+      fetch(`http://localhost:8080/search_articles?query=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          const articleList = document.getElementById('articleList').querySelector('.container');
+          articleList.innerHTML = ''; 
+          data.forEach(article => {
+            const truncatedContent = truncateText(article.content);
+            const articleItem = document.createElement('div');
+            articleItem.className = 'article-item';
+            articleItem.innerHTML = `
+              <h3>${article.title}</h3>
+              <p class="article-content">${truncatedContent}</p>
+              <p><a href="read.html?id=${article.article_id}" class="read-more">Read more</a></p>
+            `;
+            articleList.appendChild(articleItem);
+          });
+        })
+        .catch(error => {
+          console.error('Error searching articles:', error);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchArticles();
+      fetchTopArticles();
+
+      const searchButton = document.getElementById('searchButton');
+      const searchInput = document.getElementById('searchInput');
+
+      searchButton.addEventListener('click', () => {
+        const query = searchInput.value.trim();
+        if (query) {
+          searchArticles(query);
+        }
+      });
+
+      searchInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+          const query = searchInput.value.trim();
+          if (query) {
+            searchArticles(query);
+          }
+        }
+      });
+
+      const adminPanelLink = document.getElementById('adminPanelLink');
+      adminPanelLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        $('#adminLoginModal').modal('show');
+      });
+
+      const adminLoginForm = document.getElementById('adminLoginForm');
+      adminLoginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const username = document.getElementById('adminUsername').value;
+        const password = document.getElementById('adminPassword').value;
+        const loginMessage = document.getElementById('adminLoginMessage');
+
+        fetch('http://localhost:8080/admin_login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.role === 'admin') {
+            window.location.href = 'panel.html';
+          } else {
+            loginMessage.textContent = 'Access denied. You are not an admin.';
+            loginMessage.style.color = 'red';
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          loginMessage.textContent = 'An error occurred. Please try again.';
+          loginMessage.style.color = 'red';
+        });
+      });
+    });
+  </script>
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>
