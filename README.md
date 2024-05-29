@@ -1,4 +1,4 @@
-# DBMS Phase-3 Project
+# Article Submission System - ArticleHub
 
 This project is the final phase of the Database Management Systems (DBMS) term project. The aim of this project is to develop an Article Submission System named ArticleHub. The project involves multiple phases with the third phase focusing on the final project demonstration, application program code, database dump, and a detailed report describing the work through all phases.
 
